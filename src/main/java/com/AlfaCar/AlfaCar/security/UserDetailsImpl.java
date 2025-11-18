@@ -1,14 +1,17 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.security;
 
 import com.AlfaCar.AlfaCar.model.entidades.Usuario;
+import java.util.Collection;
+import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-
 public class UserDetailsImpl implements UserDetails {
-
     private final Usuario usuario;
 
     public UserDetailsImpl(Usuario usuario) {
@@ -16,43 +19,34 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return Collections.emptyList();
     }
 
-    @Override
     public String getPassword() {
-        return usuario.getSenha();
+        return this.usuario.getSenha();
     }
 
-    @Override
     public String getUsername() {
-        return usuario.getEmail();
+        return this.usuario.getEmail();
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isEnabled() {
         return true;
     }
-
 }

@@ -1,53 +1,64 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.controller;
 
 import com.AlfaCar.AlfaCar.model.entidades.Locadora;
-import com.AlfaCar.AlfaCar.service.interfaces.LocadoraService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
+import com.AlfaCar.AlfaCar.model.entidades.Usuario;
+import com.AlfaCar.AlfaCar.service.impl.LocadoraServiceImpl;
+import com.AlfaCar.AlfaCar.service.interfaces.UserService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/locadoras")
+@RequestMapping({"/locadoras"})
 public class LocadoraController {
+    private final LocadoraServiceImpl locadoraService;
+    private final UserService usuarioService;
 
-    private final LocadoraService locadoraService;
-
-    public LocadoraController(LocadoraService locadoraService) {
+    public LocadoraController(LocadoraServiceImpl locadoraService, UserService usuarioService) {
         this.locadoraService = locadoraService;
+        this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/cadastrar/{idUsuario}")
+    @PostMapping
     public ResponseEntity<Locadora> cadastrarLocadora(@RequestBody Locadora locadora) {
-
-        Locadora novaLocadora = locadoraService.cadastrarLocadora(locadora);
+        Usuario usuarioLogado = this.usuarioService.obterUsuarioLogado();
+        locadora.setUsuario(usuarioLogado);
+        Locadora novaLocadora = this.locadoraService.cadastrarLocadora(locadora);
         return ResponseEntity.ok(novaLocadora);
     }
 
     @GetMapping
     public ResponseEntity<List<Locadora>> listarLocadoras() {
-        return ResponseEntity.ok(locadoraService.listarLocadoras());
+        return ResponseEntity.ok(this.locadoraService.listarLocadoras());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping({"/{id}"})
     public ResponseEntity<Locadora> buscarLocadoraPorId(@PathVariable Long id) {
-        Optional<Locadora> locadora = locadoraService.buscarLocadoraPorId(id);
-        return locadora.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Locadora> locadora = this.locadoraService.buscarLocadoraPorId(id);
+        return (ResponseEntity)locadora.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping({"/{id}"})
     public ResponseEntity<Void> deletarLocadora(@PathVariable Long id) {
-        locadoraService.deletarLocadora(id);
+        this.locadoraService.deletarLocadora(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping({"/{id}"})
     public ResponseEntity<Locadora> atualizarLocadora(@PathVariable Long id, @RequestBody Locadora locadoraAtualizada) {
-        return locadoraService.atualizarLocadora(id, locadoraAtualizada)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return (ResponseEntity)this.locadoraService.atualizarLocadora(id, locadoraAtualizada).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

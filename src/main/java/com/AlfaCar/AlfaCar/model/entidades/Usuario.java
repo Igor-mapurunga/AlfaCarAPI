@@ -1,47 +1,79 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.AlfaCar.AlfaCar.model.enums.TipoUsuario;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(
+        name = "usuario"
+)
 public class Usuario {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCliente ")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idCliente"
+    )
     private Long id;
-
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(
+            name = "nome",
+            nullable = false,
+            length = 100
+    )
     private String nome;
-
-    @Column(name = "email", unique = true, nullable = false, length = 100)
+    @Column(
+            name = "email",
+            unique = true,
+            nullable = false,
+            length = 100
+    )
     private String email;
-
-    @Column(name = "cpf", unique = true, nullable = false, length = 14)
+    @Column(
+            name = "cpf",
+            unique = true,
+            nullable = false,
+            length = 14
+    )
     private String cpf;
-
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
-
-    @Column(name = "senha", nullable = false)
+    @Column(
+            name = "senha",
+            nullable = false
+    )
     private String senha;
-
-    @Column(name = "dataNascimento", nullable = false)
+    @Column(
+            name = "dataNascimento",
+            nullable = false
+    )
     private LocalDate dataNascimento;
-
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TelefoneUsuario> telefones = new ArrayList<>();
-
-    
-
-    // Getters e Setters...
+    @OneToMany(
+            mappedBy = "usuario",
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true
+    )
+    private List<TelefoneUsuario> telefones = new ArrayList();
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -49,7 +81,7 @@ public class Usuario {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -57,7 +89,7 @@ public class Usuario {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -65,7 +97,7 @@ public class Usuario {
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public void setCpf(String cpf) {
@@ -73,7 +105,7 @@ public class Usuario {
     }
 
     public TipoUsuario getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(TipoUsuario tipo) {
@@ -81,7 +113,7 @@ public class Usuario {
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setSenha(String senha) {
@@ -89,7 +121,7 @@ public class Usuario {
     }
 
     public LocalDate getDataNascimento() {
-        return dataNascimento;
+        return this.dataNascimento;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
@@ -97,24 +129,14 @@ public class Usuario {
     }
 
     public List<TelefoneUsuario> getTelefones() {
-        return telefones;
+        return this.telefones;
     }
 
     public void setTelefones(List<TelefoneUsuario> telefones) {
         this.telefones = telefones;
     }
 
-    @Override
     public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", tipo=" + tipo +
-                ", senha='" + senha + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", telefones=" + telefones +
-                '}';
+        return "Usuario{id=" + this.id + ", nome='" + this.nome + "', email='" + this.email + "', cpf='" + this.cpf + "', tipo=" + this.tipo + ", senha='" + this.senha + "', dataNascimento=" + this.dataNascimento + ", telefones=" + this.telefones + "}";
     }
 }

@@ -1,36 +1,60 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "telefoneCliente") // Garante o nome correto da tabela no banco
+@Table(
+        name = "telefoneCliente"
+)
 public class TelefoneUsuario {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idTelefone ")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idTelefone"
+    )
     private Long idTelefone;
-
-    @Column(name = "telefone", nullable = false, length = 15)
+    @Column(
+            name = "telefone",
+            nullable = false,
+            length = 15
+    )
     private String telefone;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "usuario_id",
+            nullable = false
+    )
     @JsonIgnore
     private Usuario usuario;
 
-    // Construtores
-    public TelefoneUsuario() {}
+    public TelefoneUsuario() {
+    }
 
     public TelefoneUsuario(String telefone, Usuario usuario) {
         this.telefone = telefone;
         this.usuario = usuario;
     }
 
-    // Getters e Setters
     public Long getIdTelefone() {
-        return idTelefone;
+        return this.idTelefone;
     }
 
     public void setIdTelefone(Long idTelefone) {
@@ -38,7 +62,7 @@ public class TelefoneUsuario {
     }
 
     public String getTelefone() {
-        return telefone;
+        return this.telefone;
     }
 
     public void setTelefone(String telefone) {
@@ -46,7 +70,7 @@ public class TelefoneUsuario {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario usuario) {

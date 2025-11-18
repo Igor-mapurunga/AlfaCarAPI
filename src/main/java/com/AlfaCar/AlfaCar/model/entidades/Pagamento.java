@@ -1,34 +1,59 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.AlfaCar.AlfaCar.model.enums.StatusPagamento;
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "pagamento")
+@Table(
+        name = "pagamento"
+)
 public class Pagamento {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPagamento")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idPagamento"
+    )
     private Long id;
-
-    @Column(name = "valor", nullable = false, precision = 12, scale = 2)
+    @Column(
+            name = "valor",
+            nullable = false,
+            precision = 12,
+            scale = 2
+    )
     private BigDecimal valor;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "statusPagamento", nullable = false)
+    @Column(
+            name = "statusPagamento",
+            nullable = false
+    )
     private StatusPagamento statusPagamento;
-
     @OneToOne
-    @JoinColumn(name = "pedido", nullable = false)
+    @JoinColumn(
+            name = "pedido",
+            nullable = false
+    )
     private Pedido pedido;
 
-    // Construtor Padrão
-    public Pagamento() {}
+    public Pagamento() {
+    }
 
-    // Construtor com parâmetros
     public Pagamento(BigDecimal valor, StatusPagamento statusPagamento, Pedido pedido) {
         this.valor = valor;
         this.statusPagamento = statusPagamento;
@@ -36,7 +61,7 @@ public class Pagamento {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -44,7 +69,7 @@ public class Pagamento {
     }
 
     public BigDecimal getValor() {
-        return valor;
+        return this.valor;
     }
 
     public void setValor(BigDecimal valor) {
@@ -52,7 +77,7 @@ public class Pagamento {
     }
 
     public StatusPagamento getStatusPagamento() {
-        return statusPagamento;
+        return this.statusPagamento;
     }
 
     public void setStatusPagamento(StatusPagamento statusPagamento) {
@@ -60,7 +85,7 @@ public class Pagamento {
     }
 
     public Pedido getPedido() {
-        return pedido;
+        return this.pedido;
     }
 
     public void setPedido(Pedido pedido) {

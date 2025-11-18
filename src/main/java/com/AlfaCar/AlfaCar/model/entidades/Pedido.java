@@ -1,51 +1,83 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.AlfaCar.AlfaCar.model.enums.StatusPedido;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pedido")
+@Table(
+        name = "pedido"
+)
 public class Pedido {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPedido ")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idPedido "
+    )
     private Long id;
-
-    @Column(name = "dataPedido", nullable = false)
+    @Column(
+            name = "dataPedido",
+            nullable = false
+    )
     private LocalDateTime dataPedido;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "statusPedido", nullable = false)
+    @Column(
+            name = "statusPedido",
+            nullable = false
+    )
     private StatusPedido statusPedido;
-
     @ManyToOne
-    @JoinColumn(name = "usuario", nullable = false)
+    @JoinColumn(
+            name = "usuario",
+            nullable = false
+    )
     private Usuario usuario;
-
     @ManyToOne
-    @JoinColumn(name = "veiculo", nullable = false)
+    @JoinColumn(
+            name = "veiculo",
+            nullable = false
+    )
     private Veiculo veiculo;
-
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToOne(
+            mappedBy = "pedido",
+            cascade = {CascadeType.ALL}
+    )
     private Pagamento pagamento;
-
     @ManyToOne
-    @JoinColumn(name = "idLocadora", nullable = false)
+    @JoinColumn(
+            name = "idLocadora",
+            nullable = false
+    )
     private Locadora locadora;
 
     public Locadora getLocadora() {
-        return locadora;
+        return this.locadora;
     }
 
     public void setLocadora(Locadora locadora) {
         this.locadora = locadora;
     }
 
-    // Getters e Setters
     public Pagamento getPagamento() {
-        return pagamento;
+        return this.pagamento;
     }
 
     public void setPagamento(Pagamento pagamento) {
@@ -53,7 +85,7 @@ public class Pedido {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -61,7 +93,7 @@ public class Pedido {
     }
 
     public LocalDateTime getDataPedido() {
-        return dataPedido;
+        return this.dataPedido;
     }
 
     public void setDataPedido(LocalDateTime dataPedido) {
@@ -69,7 +101,7 @@ public class Pedido {
     }
 
     public StatusPedido getStatusPedido() {
-        return statusPedido;
+        return this.statusPedido;
     }
 
     public void setStatusPedido(StatusPedido statusPedido) {
@@ -77,7 +109,7 @@ public class Pedido {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -85,7 +117,7 @@ public class Pedido {
     }
 
     public Veiculo getVeiculo() {
-        return veiculo;
+        return this.veiculo;
     }
 
     public void setVeiculo(Veiculo veiculo) {

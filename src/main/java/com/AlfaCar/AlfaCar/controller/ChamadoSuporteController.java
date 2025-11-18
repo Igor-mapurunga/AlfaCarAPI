@@ -1,75 +1,67 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.controller;
 
 import com.AlfaCar.AlfaCar.model.entidades.ChamadoSuporte;
 import com.AlfaCar.AlfaCar.model.enums.StatusSuporte;
 import com.AlfaCar.AlfaCar.service.interfaces.ChamadoSuporteService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/chamados")
+@RequestMapping({"/chamados"})
 public class ChamadoSuporteController {
-
     private final ChamadoSuporteService chamadoSuporteService;
 
     public ChamadoSuporteController(ChamadoSuporteService chamadoSuporteService) {
         this.chamadoSuporteService = chamadoSuporteService;
     }
 
-    // 📌 Criar um chamado de suporte para um usuário
-    @PostMapping("/usuario/{usuarioId}")
+    @PostMapping({"/usuario/{usuarioId}"})
     public ResponseEntity<ChamadoSuporte> abrirChamado(@PathVariable Long usuarioId, @RequestBody ChamadoSuporte chamadoSuporte) {
-        ChamadoSuporte novoChamado = chamadoSuporteService.criarChamado(chamadoSuporte, usuarioId);
+        ChamadoSuporte novoChamado = this.chamadoSuporteService.criarChamado(chamadoSuporte, usuarioId);
         return ResponseEntity.ok(novoChamado);
     }
 
-    // 📌 Listar todos os chamados
     @GetMapping
     public ResponseEntity<List<ChamadoSuporte>> listarChamados() {
-        return ResponseEntity.ok(chamadoSuporteService.buscarChamados());
+        return ResponseEntity.ok(this.chamadoSuporteService.buscarChamados());
     }
 
-    // 📌 Buscar um chamado pelo ID
-    @GetMapping("/{id}")
+    @GetMapping({"/{id}"})
     public ResponseEntity<?> buscarChamadoPorId(@PathVariable Long id) {
-        Optional<ChamadoSuporte> chamado = chamadoSuporteService.buscarChamadoPorId(id);
-        return chamado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<ChamadoSuporte> chamado = this.chamadoSuporteService.buscarChamadoPorId(id);
+        return (ResponseEntity)chamado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 📌 Buscar chamados por usuário
-    @GetMapping("/usuario/{usuarioId}")
+    @GetMapping({"/usuario/{usuarioId}"})
     public ResponseEntity<List<ChamadoSuporte>> buscarChamadosPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(chamadoSuporteService.buscarChamadosPorUsuario(usuarioId));
+        return ResponseEntity.ok(this.chamadoSuporteService.buscarChamadosPorUsuario(usuarioId));
     }
 
-    // 📌 Buscar chamados por status
-    @GetMapping("/status/{statusSuporte}")
+    @GetMapping({"/status/{statusSuporte}"})
     public ResponseEntity<List<ChamadoSuporte>> buscarChamadosPorStatus(@PathVariable StatusSuporte statusSuporte) {
-        return ResponseEntity.ok(chamadoSuporteService.buscarChamadosPorStatus(statusSuporte));
+        return ResponseEntity.ok(this.chamadoSuporteService.buscarChamadosPorStatus(statusSuporte));
     }
 
-    // 📌 Atualizar um chamado de suporte
-    @PutMapping("/{id}")
+    @PutMapping({"/{id}"})
     public ResponseEntity<?> atualizarChamado(@PathVariable Long id, @RequestBody ChamadoSuporte chamadoAtualizado) {
         try {
-            ChamadoSuporte chamadoAtualizadoDb = chamadoSuporteService.atualizarChamado(id, chamadoAtualizado);
+            ChamadoSuporte chamadoAtualizadoDb = this.chamadoSuporteService.atualizarChamado(id, chamadoAtualizado);
             return ResponseEntity.ok(chamadoAtualizadoDb);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-//    // 📌 Deletar um chamado de suporte
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletarChamado(@PathVariable Long id) {
-//        try {
-//            chamadoSuporteService.deletarChamado(id);
-//            return ResponseEntity.noContent().build();
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//    }
 }

@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.service.impl;
 
 import com.AlfaCar.AlfaCar.model.entidades.ChamadoSuporte;
@@ -6,14 +11,12 @@ import com.AlfaCar.AlfaCar.model.enums.StatusSuporte;
 import com.AlfaCar.AlfaCar.repository.ChamadoSuporteRepository;
 import com.AlfaCar.AlfaCar.repository.UserRepository;
 import com.AlfaCar.AlfaCar.service.interfaces.ChamadoSuporteService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ChamadoSuporteServiceImpl implements ChamadoSuporteService {
-
     private final ChamadoSuporteRepository chamadoSuporteRepository;
     private final UserRepository userRepository;
 
@@ -22,51 +25,42 @@ public class ChamadoSuporteServiceImpl implements ChamadoSuporteService {
         this.userRepository = userRepository;
     }
 
-    @Override
     public ChamadoSuporte criarChamado(ChamadoSuporte chamadoSuporte, Long usuarioId) {
-        Usuario usuario = userRepository.findById(usuarioId)
-                .orElseThrow(() -> new IllegalArgumentException("Usuário com ID " + usuarioId + " não encontrado."));
-
+        Usuario usuario = (Usuario)this.userRepository.findById(usuarioId).orElseThrow(() -> new IllegalArgumentException("Usuário com ID " + usuarioId + " não encontrado."));
         chamadoSuporte.setUsuario(usuario);
-        chamadoSuporte.setStatusSuporte(StatusSuporte.ABERTO); // Status inicial padrão
-
-        return chamadoSuporteRepository.save(chamadoSuporte);
+        chamadoSuporte.setStatusSuporte(StatusSuporte.ABERTO);
+        return (ChamadoSuporte)this.chamadoSuporteRepository.save(chamadoSuporte);
     }
 
-    @Override
     public List<ChamadoSuporte> buscarChamados() {
-        return chamadoSuporteRepository.findAll();
+        return this.chamadoSuporteRepository.findAll();
     }
 
-    @Override
     public Optional<ChamadoSuporte> buscarChamadoPorId(Long id) {
-        return chamadoSuporteRepository.findById(id);
+        return this.chamadoSuporteRepository.findById(id);
     }
 
-    @Override
     public List<ChamadoSuporte> buscarChamadosPorUsuario(Long usuarioId) {
-        return chamadoSuporteRepository.findByUsuarioId(usuarioId);
+        return this.chamadoSuporteRepository.findByUsuarioId(usuarioId);
     }
 
-    @Override
     public List<ChamadoSuporte> buscarChamadosPorStatus(StatusSuporte statusSuporte) {
-        return chamadoSuporteRepository.findByStatusSuporte(statusSuporte.name());
+        return this.chamadoSuporteRepository.findByStatusSuporte(statusSuporte.name());
     }
 
-    @Override
     public ChamadoSuporte atualizarChamado(Long id, ChamadoSuporte chamadoAtualizado) {
-        return chamadoSuporteRepository.findById(id).map(chamado -> {
+        return (ChamadoSuporte)this.chamadoSuporteRepository.findById(id).map((chamado) -> {
             chamado.setDescricaoSuporte(chamadoAtualizado.getDescricaoSuporte());
             chamado.setStatusSuporte(chamadoAtualizado.getStatusSuporte());
-            return chamadoSuporteRepository.save(chamado);
+            return (ChamadoSuporte)this.chamadoSuporteRepository.save(chamado);
         }).orElseThrow(() -> new IllegalArgumentException("Chamado com ID " + id + " não encontrado."));
     }
 
-    @Override
     public void deletarChamado(Long id) {
-        if (!chamadoSuporteRepository.existsById(id)) {
+        if (!this.chamadoSuporteRepository.existsById(id)) {
             throw new IllegalArgumentException("Chamado com ID " + id + " não encontrado.");
+        } else {
+            this.chamadoSuporteRepository.deleteById(id);
         }
-        chamadoSuporteRepository.deleteById(id);
     }
 }

@@ -1,60 +1,93 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.AlfaCar.AlfaCar.model.enums.StatusAluguel;
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "aluguel")
+@Table(
+        name = "aluguel"
+)
 public class Aluguel {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idAluguel")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idAluguel"
+    )
     private Long id;
-
-    @Column(name = "dataDoPedido", nullable = false)
+    @Column(
+            name = "dataDoPedido",
+            nullable = false
+    )
     private LocalDateTime dataDoPedido;
-
-    @Column(name = "dataAluguel", nullable = false)
+    @Column(
+            name = "dataAluguel",
+            nullable = false
+    )
     private LocalDateTime dataAluguel;
-
-    @Column(name = "dataDevolucao", nullable = false)
+    @Column(
+            name = "dataDevolucao",
+            nullable = false
+    )
     private LocalDateTime dataDevolucao;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "statusAluguel", nullable = false)
+    @Column(
+            name = "statusAluguel",
+            nullable = false
+    )
     private StatusAluguel statusAluguel;
-
     @ManyToOne
-    @JoinColumn(name = "cliente")
+    @JoinColumn(
+            name = "cliente"
+    )
     private Usuario cliente;
-
     @ManyToOne
-    @JoinColumn(name = "veiculo")
+    @JoinColumn(
+            name = "veiculo"
+    )
     private Veiculo veiculo;
-
     @OneToOne
-    @JoinColumn(name = "pedido", nullable = false)
+    @JoinColumn(
+            name = "pedido",
+            nullable = false
+    )
     private Pedido pedido;
-
     @ManyToOne
-    @JoinColumn(name = "idLocadora", nullable = false)
+    @JoinColumn(
+            name = "idLocadora",
+            nullable = false
+    )
     private Locadora locadora;
 
     public Locadora getLocadora() {
-        return locadora;
+        return this.locadora;
     }
 
     public void setLocadora(Locadora locadora) {
         this.locadora = locadora;
     }
 
-    public Aluguel() {}
+    public Aluguel() {
+    }
 
-    public Aluguel(LocalDateTime dataDoPedido, LocalDateTime dataAluguel, LocalDateTime dataDevolucao,
-                   StatusAluguel statusAluguel, Usuario cliente, Veiculo veiculo, Pedido pedido) {
+    public Aluguel(LocalDateTime dataDoPedido, LocalDateTime dataAluguel, LocalDateTime dataDevolucao, StatusAluguel statusAluguel, Usuario cliente, Veiculo veiculo, Pedido pedido) {
         this.dataDoPedido = dataDoPedido;
         this.dataAluguel = dataAluguel;
         this.dataDevolucao = dataDevolucao;
@@ -64,9 +97,8 @@ public class Aluguel {
         this.pedido = pedido;
     }
 
-    // Getters e Setters
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -74,7 +106,7 @@ public class Aluguel {
     }
 
     public LocalDateTime getDataDoPedido() {
-        return dataDoPedido;
+        return this.dataDoPedido;
     }
 
     public void setDataDoPedido(LocalDateTime dataDoPedido) {
@@ -82,7 +114,7 @@ public class Aluguel {
     }
 
     public LocalDateTime getDataAluguel() {
-        return dataAluguel;
+        return this.dataAluguel;
     }
 
     public void setDataAluguel(LocalDateTime dataAluguel) {
@@ -90,7 +122,7 @@ public class Aluguel {
     }
 
     public LocalDateTime getDataDevolucao() {
-        return dataDevolucao;
+        return this.dataDevolucao;
     }
 
     public void setDataDevolucao(LocalDateTime dataDevolucao) {
@@ -98,7 +130,7 @@ public class Aluguel {
     }
 
     public StatusAluguel getStatusAluguel() {
-        return statusAluguel;
+        return this.statusAluguel;
     }
 
     public void setStatusAluguel(StatusAluguel statusAluguel) {
@@ -106,7 +138,7 @@ public class Aluguel {
     }
 
     public Usuario getCliente() {
-        return cliente;
+        return this.cliente;
     }
 
     public void setCliente(Usuario cliente) {
@@ -114,7 +146,7 @@ public class Aluguel {
     }
 
     public Veiculo getVeiculo() {
-        return veiculo;
+        return this.veiculo;
     }
 
     public void setVeiculo(Veiculo veiculo) {
@@ -122,7 +154,7 @@ public class Aluguel {
     }
 
     public Pedido getPedido() {
-        return pedido;
+        return this.pedido;
     }
 
     public void setPedido(Pedido pedido) {

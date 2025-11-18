@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.repository;
 
 import com.AlfaCar.AlfaCar.model.entidades.Locadora;
@@ -6,6 +11,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LocadoraRepository extends JpaRepository<Locadora, Long> {
-
-
 }

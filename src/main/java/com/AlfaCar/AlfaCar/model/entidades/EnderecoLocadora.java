@@ -1,40 +1,77 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.AlfaCar.AlfaCar.model.entidades;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "enderecoLocadora")
+@Table(
+        name = "enderecoLocadora"
+)
 public class EnderecoLocadora {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idEnderecoLocadora")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    @Column(
+            name = "idEnderecoLocadora"
+    )
     private Long id;
-
-    @Column(name = "logradouro", nullable = false, length = 45)
+    @Column(
+            name = "logradouro",
+            nullable = false,
+            length = 45
+    )
     private String logradouro;
-
-    @Column(name = "numero", nullable = false, length = 10)
+    @Column(
+            name = "numero",
+            nullable = false,
+            length = 10
+    )
     private String numero;
-
-    @Column(name = "bairro", nullable = false, length = 45)
+    @Column(
+            name = "bairro",
+            nullable = false,
+            length = 45
+    )
     private String bairro;
-
-    @Column(name = "cep", nullable = false, length = 8)
+    @Column(
+            name = "cep",
+            nullable = false,
+            length = 8
+    )
     private String cep;
-
-    @Column(name = "cidade", nullable = false, length = 45)
+    @Column(
+            name = "cidade",
+            nullable = false,
+            length = 45
+    )
     private String cidade;
-
-    @Column(name = "UF", nullable = false, length = 2)
+    @Column(
+            name = "UF",
+            nullable = false,
+            length = 2
+    )
     private String uf;
-
     @OneToOne
-    @JoinColumn(name = "locadora", nullable = false)
+    @JoinColumn(
+            name = "locadora",
+            nullable = false
+    )
     private Locadora locadora;
 
-    // Construtores
-    public EnderecoLocadora() {}
+    public EnderecoLocadora() {
+    }
 
     public EnderecoLocadora(String logradouro, String numero, String bairro, String cep, String cidade, String uf, Locadora locadora) {
         this.logradouro = logradouro;
@@ -46,9 +83,8 @@ public class EnderecoLocadora {
         this.locadora = locadora;
     }
 
-    // Getters e Setters
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -56,7 +92,7 @@ public class EnderecoLocadora {
     }
 
     public String getLogradouro() {
-        return logradouro;
+        return this.logradouro;
     }
 
     public void setLogradouro(String logradouro) {
@@ -64,7 +100,7 @@ public class EnderecoLocadora {
     }
 
     public String getNumero() {
-        return numero;
+        return this.numero;
     }
 
     public void setNumero(String numero) {
@@ -72,7 +108,7 @@ public class EnderecoLocadora {
     }
 
     public String getBairro() {
-        return bairro;
+        return this.bairro;
     }
 
     public void setBairro(String bairro) {
@@ -80,7 +116,7 @@ public class EnderecoLocadora {
     }
 
     public String getCep() {
-        return cep;
+        return this.cep;
     }
 
     public void setCep(String cep) {
@@ -88,7 +124,7 @@ public class EnderecoLocadora {
     }
 
     public String getCidade() {
-        return cidade;
+        return this.cidade;
     }
 
     public void setCidade(String cidade) {
@@ -96,7 +132,7 @@ public class EnderecoLocadora {
     }
 
     public String getUf() {
-        return uf;
+        return this.uf;
     }
 
     public void setUf(String uf) {
@@ -104,7 +140,7 @@ public class EnderecoLocadora {
     }
 
     public Locadora getLocadora() {
-        return locadora;
+        return this.locadora;
     }
 
     public void setLocadora(Locadora locadora) {
