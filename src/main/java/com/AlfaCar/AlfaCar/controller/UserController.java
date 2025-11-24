@@ -43,18 +43,38 @@ public class UserController {
         return ResponseEntity.ok(novoUsuario);
     }
 
-    @PutMapping({"/{id}"})
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
-        Optional<Usuario> usuarioOpt = this.userService.buscarUsuarioPorId(id);
+        Optional<Usuario> usuarioOpt = userService.buscarUsuarioPorId(id);
+
         if (usuarioOpt.isPresent()) {
-            Usuario usuarioExistente = (Usuario)usuarioOpt.get();
-            usuarioExistente.setNome(usuarioAtualizado.getNome());
-            usuarioExistente.setEmail(usuarioAtualizado.getEmail());
-            usuarioExistente.setCpf(usuarioAtualizado.getCpf());
-            usuarioExistente.setTipo(usuarioAtualizado.getTipo());
-            usuarioExistente.setSenha(usuarioAtualizado.getSenha());
-            usuarioExistente.setDataNascimento(usuarioAtualizado.getDataNascimento());
-            Usuario usuarioSalvo = this.userService.cadastrarUsuario(usuarioExistente);
+            Usuario usuarioExistente = usuarioOpt.get();
+
+            if (usuarioAtualizado.getNome() != null) {
+                usuarioExistente.setNome(usuarioAtualizado.getNome());
+            }
+
+            if (usuarioAtualizado.getEmail() != null) {
+                usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+            }
+
+            if (usuarioAtualizado.getCpf() != null) {
+                usuarioExistente.setCpf(usuarioAtualizado.getCpf());
+            }
+
+            if (usuarioAtualizado.getTipo() != null) {
+                usuarioExistente.setTipo(usuarioAtualizado.getTipo());
+            }
+
+            if (usuarioAtualizado.getSenha() != null) {
+                usuarioExistente.setSenha(usuarioAtualizado.getSenha());
+            }
+
+            if (usuarioAtualizado.getDataNascimento() != null) {
+                usuarioExistente.setDataNascimento(usuarioAtualizado.getDataNascimento());
+            }
+
+            Usuario usuarioSalvo = userService.cadastrarUsuario(usuarioExistente);
             return ResponseEntity.ok(usuarioSalvo);
         } else {
             return ResponseEntity.notFound().build();

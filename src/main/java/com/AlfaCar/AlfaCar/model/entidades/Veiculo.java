@@ -1,101 +1,60 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.AlfaCar.AlfaCar.model.enums.StatusVeiculo;
 import com.AlfaCar.AlfaCar.model.enums.TipoCombustivel;
 import com.AlfaCar.AlfaCar.model.enums.TipoVeiculo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(
-        name = "veiculo"
-)
+@Table(name = "veiculo")
 public class Veiculo {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
-    @Column(
-            name = "idVeiculo "
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idVeiculo") // removido espaço
     private Long id;
-    @Column(
-            name = "placa",
-            nullable = false,
-            length = 100
-    )
+
+    @Column(name = "placa", nullable = false, length = 100)
     private String placa;
-    @Column(
-            name = "marca",
-            nullable = false,
-            length = 180
-    )
+
+    @Column(name = "marca", nullable = false, length = 180)
     private String marca;
-    @Column(
-            name = "modelo",
-            nullable = false,
-            length = 180
-    )
+
+    @Column(name = "modelo", nullable = false, length = 180)
     private String modelo;
+
     @Enumerated(EnumType.STRING)
-    @Column(
-            name = "tipoVeiculo",
-            nullable = false
-    )
+    @Column(name = "tipoVeiculo", nullable = false)
     private TipoVeiculo tipoVeiculo;
+
     @Enumerated(EnumType.STRING)
-    @Column(
-            name = "tipoCombustivel",
-            nullable = false
-    )
+    @Column(name = "tipoCombustivel", nullable = false)
     private TipoCombustivel tipoCombustivel;
-    @Column(
-            name = "kilometragem",
-            nullable = false,
-            precision = 8,
-            scale = 2
-    )
+
+    @Column(name = "kilometragem", nullable = false, precision = 8, scale = 2)
     private BigDecimal kilometragem;
-    @Column(
-            name = "precoDiario",
-            nullable = false,
-            precision = 7,
-            scale = 2
-    )
+
+    @Column(name = "precoDiario", nullable = false, precision = 7, scale = 2)
     private BigDecimal precoDiario;
+
     @Enumerated(EnumType.STRING)
-    @Column(
-            name = "statusVeiculo",
-            nullable = false
-    )
+    @Column(name = "statusVeiculo", nullable = false)
     private StatusVeiculo statusVeiculo;
-    @ManyToOne(
-            optional = false
-    )
-    @JoinColumn(
-            name = "id_locadora",
-            nullable = false
-    )
+
+    @Column(name = "imagem_url", length = 500) // correto agora
+    private String imagemUrl;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_locadora", nullable = false)
     @JsonBackReference
     private Locadora locadora;
 
+    // GETTERS E SETTERS
+
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -103,7 +62,7 @@ public class Veiculo {
     }
 
     public String getPlaca() {
-        return this.placa;
+        return placa;
     }
 
     public void setPlaca(String placa) {
@@ -111,7 +70,7 @@ public class Veiculo {
     }
 
     public String getMarca() {
-        return this.marca;
+        return marca;
     }
 
     public void setMarca(String marca) {
@@ -119,7 +78,7 @@ public class Veiculo {
     }
 
     public String getModelo() {
-        return this.modelo;
+        return modelo;
     }
 
     public void setModelo(String modelo) {
@@ -127,7 +86,7 @@ public class Veiculo {
     }
 
     public TipoVeiculo getTipoVeiculo() {
-        return this.tipoVeiculo;
+        return tipoVeiculo;
     }
 
     public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
@@ -135,7 +94,7 @@ public class Veiculo {
     }
 
     public TipoCombustivel getTipoCombustivel() {
-        return this.tipoCombustivel;
+        return tipoCombustivel;
     }
 
     public void setTipoCombustivel(TipoCombustivel tipoCombustivel) {
@@ -143,7 +102,7 @@ public class Veiculo {
     }
 
     public BigDecimal getKilometragem() {
-        return this.kilometragem;
+        return kilometragem;
     }
 
     public void setKilometragem(BigDecimal kilometragem) {
@@ -151,7 +110,7 @@ public class Veiculo {
     }
 
     public BigDecimal getPrecoDiario() {
-        return this.precoDiario;
+        return precoDiario;
     }
 
     public void setPrecoDiario(BigDecimal precoDiario) {
@@ -159,18 +118,26 @@ public class Veiculo {
     }
 
     public StatusVeiculo getStatusVeiculo() {
-        return this.statusVeiculo;
-    }
-
-    public Locadora getLocadora() {
-        return this.locadora;
-    }
-
-    public void setLocadora(Locadora locadora) {
-        this.locadora = locadora;
+        return statusVeiculo;
     }
 
     public void setStatusVeiculo(StatusVeiculo statusVeiculo) {
         this.statusVeiculo = statusVeiculo;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
+    public Locadora getLocadora() {
+        return locadora;
+    }
+
+    public void setLocadora(Locadora locadora) {
+        this.locadora = locadora;
     }
 }

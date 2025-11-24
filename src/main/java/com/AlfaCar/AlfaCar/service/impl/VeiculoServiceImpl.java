@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.AlfaCar.AlfaCar.service.impl;
 
 import com.AlfaCar.AlfaCar.model.entidades.Veiculo;
@@ -15,22 +10,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VeiculoServiceImpl implements VeiculoService {
+
     @Autowired
     private VeiculoRepository veiculoRepository;
 
+    @Override
     public Veiculo cadastrarVeiculo(Veiculo veiculo) {
-        return (Veiculo)this.veiculoRepository.save(veiculo);
+        return veiculoRepository.save(veiculo);
     }
 
+    @Override
     public List<Veiculo> listarVeiculo() {
-        return this.veiculoRepository.findAll();
+        return veiculoRepository.findAll();
     }
 
+    @Override
     public Optional<Veiculo> buscarVeiculoPorId(Long id) {
-        return this.veiculoRepository.findById(id);
+        return veiculoRepository.findById(id);
     }
 
+    @Override
     public void deletarVeiculo(Long id) {
-        this.veiculoRepository.deleteById(id);
+        veiculoRepository.deleteById(id);
     }
 }

@@ -25,41 +25,54 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping({"/veiculos"})
 public class VeiculoController {
+
     @Autowired
     private VeiculoService veiculoService;
+
     @Autowired
     private LocadoraServiceImpl locadoraService;
 
-    @PostMapping({"/{idLocadora}"})
-    public ResponseEntity<Veiculo> cadastrarVeiculo(@PathVariable Long idLocadora, @RequestBody Veiculo veiculo) {
-        Optional<Locadora> locadoraOptional = this.locadoraService.buscarLocadoraPorId(idLocadora);
+    @PostMapping("/{idLocadora}")
+    public ResponseEntity<Veiculo> cadastrarVeiculo(
+            @PathVariable Long idLocadora,
+            @RequestBody Veiculo veiculo
+    ) {
+        Optional<Locadora> locadoraOptional = locadoraService.buscarLocadoraPorId(idLocadora);
+
         if (locadoraOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        } else {
-            Locadora locadora = (Locadora)locadoraOptional.get();
-            veiculo.setLocadora(locadora);
-            Veiculo novoVeiculo = this.veiculoService.cadastrarVeiculo(veiculo);
-            return ResponseEntity.ok(novoVeiculo);
         }
+
+        Locadora locadora = locadoraOptional.get();
+        veiculo.setLocadora(locadora);
+
+        Veiculo novoVeiculo = veiculoService.cadastrarVeiculo(veiculo);
+        return ResponseEntity.ok(novoVeiculo);
     }
 
     @GetMapping
     public ResponseEntity<List<Veiculo>> listarVeiculos() {
-        List<Veiculo> veiculos = this.veiculoService.listarVeiculo();
+        List<Veiculo> veiculos = veiculoService.listarVeiculo();
         return ResponseEntity.ok(veiculos);
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping("/{id}")
     public ResponseEntity<Veiculo> buscarVeiculoPorId(@PathVariable Long id) {
-        Optional<Veiculo> veiculo = this.veiculoService.buscarVeiculoPorId(id);
-        return (ResponseEntity)veiculo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Veiculo> veiculo = veiculoService.buscarVeiculoPorId(id);
+        return veiculo.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping({"/{id}"})
-    public ResponseEntity<Veiculo> atualizarVeiculo(@PathVariable Long id, @RequestBody Veiculo veiculoAtualizado) {
-        Optional<Veiculo> veiculoOptional = this.veiculoService.buscarVeiculoPorId(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<Veiculo> atualizarVeiculo(
+            @PathVariable Long id,
+            @RequestBody Veiculo veiculoAtualizado
+    ) {
+        Optional<Veiculo> veiculoOptional = veiculoService.buscarVeiculoPorId(id);
+
         if (veiculoOptional.isPresent()) {
-            Veiculo veiculoExistente = (Veiculo)veiculoOptional.get();
+            Veiculo veiculoExistente = veiculoOptional.get();
+
             veiculoExistente.setPlaca(veiculoAtualizado.getPlaca());
             veiculoExistente.setMarca(veiculoAtualizado.getMarca());
             veiculoExistente.setModelo(veiculoAtualizado.getModelo());
@@ -68,21 +81,24 @@ public class VeiculoController {
             veiculoExistente.setKilometragem(veiculoAtualizado.getKilometragem());
             veiculoExistente.setPrecoDiario(veiculoAtualizado.getPrecoDiario());
             veiculoExistente.setStatusVeiculo(veiculoAtualizado.getStatusVeiculo());
-            Veiculo veiculoSalvo = this.veiculoService.cadastrarVeiculo(veiculoExistente);
+            veiculoExistente.setImagemUrl(veiculoAtualizado.getImagemUrl()); // 🚀 CAMPO NOVO
+
+            Veiculo veiculoSalvo = veiculoService.cadastrarVeiculo(veiculoExistente);
             return ResponseEntity.ok(veiculoSalvo);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarVeiculo(@PathVariable Long id) {
-        Optional<Veiculo> veiculo = this.veiculoService.buscarVeiculoPorId(id);
+        Optional<Veiculo> veiculo = veiculoService.buscarVeiculoPorId(id);
+
         if (veiculo.isPresent()) {
-            this.veiculoService.deletarVeiculo(id);
+            veiculoService.deletarVeiculo(id);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
     }
 }
