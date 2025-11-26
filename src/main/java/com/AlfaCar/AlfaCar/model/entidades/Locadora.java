@@ -1,68 +1,61 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package com.AlfaCar.AlfaCar.model.entidades;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
-@Table(
-        name = "locadora"
-)
+@Table(name = "locadora")
 public class Locadora {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
-    @Column(
-            name = "idLocadora"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idLocadora")
     private Long id;
-    @Column(
-            name = "nome",
-            nullable = false,
-            length = 100
-    )
+
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    @OneToOne
-    @JoinColumn(
-            name = "idCliente",
-            referencedColumnName = "idCliente",
-            nullable = false
-    )
+
+    // --- ENDEREÇO ---
+    @Column(nullable = false, length = 120)
+    private String logradouro;
+
+    @Column(nullable = false, length = 10)
+    private String numero;
+
+    @Column(nullable = false, length = 80)
+    private String bairro;
+
+    @Column(nullable = false, length = 80)
+    private String cidade;
+
+    @Column(nullable = false, length = 2)
+    private String estado;
+
+    @Column(nullable = false, length = 9)
+    private String cep;
+
+    // --- RELACIONAMENTO COM USUÁRIO ---
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
-    @OneToMany(
-            mappedBy = "locadora",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
+
+    // --- RELACIONAMENTO COM VEÍCULOS ---
+    @OneToMany(mappedBy = "locadora", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Veiculo> veiculos;
 
-    public Locadora() {
-    }
+    // --- CONSTRUTORES ---
+    public Locadora() {}
 
     public Locadora(String nome) {
         this.nome = nome;
     }
 
+    // --- GETTERS & SETTERS ---
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -70,11 +63,63 @@ public class Locadora {
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public Usuario getUsuario() {
-        return this.usuario;
+        return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -82,14 +127,10 @@ public class Locadora {
     }
 
     public List<Veiculo> getVeiculos() {
-        return this.veiculos;
+        return veiculos;
     }
 
     public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 }
